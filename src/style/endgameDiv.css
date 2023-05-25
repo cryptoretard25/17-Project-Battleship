@@ -1,0 +1,53 @@
+.endgame{
+  font-size: 95%;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100rem;
+  min-width: 91rem;
+
+  background-color: var(--stale-100);
+  background-color: white;
+  border-radius: 5rem;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  color: var(--stale-900);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 3rem;
+ 
+  gap: 1.3rem;
+  z-index: 4;
+}
+
+.endgame > h1{
+  font-size: 3.5rem;
+ padding: 0;
+ margin: 0; 
+}
+
+#start-again-btn {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  background-color: #4caf50;
+}
+
+#start-again-btn:hover {
+  background-color: #3e8e41;
+  transform: scale(1.02);
+}
+
+#start-again-btn:active{
+  transform: scale(0.95);
+}

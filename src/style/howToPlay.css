@@ -1,0 +1,84 @@
+#how-to-play{
+  cursor: pointer;
+}
+
+.how-to-play {
+  font-size: 95%;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 66rem;
+  max-width: 60rem;
+
+  -background-color: var(--stale-100);
+  background-color: white;
+  border-radius: 5rem;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  color: var(--stale-900);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 5rem;
+ 
+  gap: 1.3rem;
+  z-index: 4;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  background-color: rgba(50, 65, 85, 0.7);
+  z-index: 3;
+}
+
+.how-to-play > h1 {
+  text-align: center;
+}
+
+.how-to-play > h4 {
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.how-to-play > p {
+  text-align: justify;
+  padding: 0;
+  margin: 0;
+}
+
+.how-to-play > ol {
+  gap: 0.3rem;
+}
+
+.how-to-play > ol > li {
+  color: var(--stale-900);
+  text-align: justify;
+  padding: 0.2rem;
+  display: list-item;
+  list-style: decimal inside;
+}
+
+.how-to-play > ol > li:hover {
+  transform: scale(1);
+}
+
+#how-to-close-btn{
+  cursor: pointer;
+  position: fixed;
+  top: 2rem;
+  right: 3rem;
+  width: 3rem;
+  height: 3rem;
+  align-self: flex-end;
+}
+
+#how-to-close-btn:hover{
+  transform: scale(1.15);
+}

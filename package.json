@@ -1,0 +1,37 @@
+{
+  "name": "17-project-battleship",
+  "version": "1.0.0",
+  "description": "<section id=\"assignment\">   <h3><a href=\"#assignment\" class=\"anchor-link\">Assignment</a></h3>",
+  "main": "./src/script.js",
+  "scripts": {
+    "test": "jest",
+    "test-watch": "jest --watch *.js",
+    "build": "webpack",
+    "webpack-watch": "webpack --progress --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cryptoretard25/17-Project-Battleship.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cryptoretard25/17-Project-Battleship/issues"
+  },
+  "homepage": "https://github.com/cryptoretard25/17-Project-Battleship#readme",
+  "dependencies": {
+    "jest": "^29.5.0",
+    "save-dev": "^0.0.1-security"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.7.3",
+    "html-webpack-plugin": "^5.5.1",
+    "mini-css-extract-plugin": "^2.7.5",
+    "style-loader": "^3.3.2",
+    "webpack": "^5.82.1",
+    "webpack-cli": "^5.1.1"
+  }
+}

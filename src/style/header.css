@@ -1,0 +1,33 @@
+.header {
+  padding: 0 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: var(--stale-100);
+}
+
+h1 {
+  font-family: StarWars;
+  flex: 1;
+  font-size: 5rem;
+}
+
+ul,
+li,
+a {
+  display: inline-flex;
+  flex-direction: row;
+  gap: 20px;
+  color: var(--stale-100);
+}
+
+a {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+li:hover {
+  transform: scale(1.1);
+}

@@ -1,0 +1,123 @@
+.place-ship-menu {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%);
+  height: 60rem;
+  width: 100rem;
+  background-color: var(--stale-100);
+  border-radius: 5rem;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  color: var(--stale-900);
+
+  padding: 5rem;
+  display: none;
+  align-items: center;
+  flex-flow: column;
+  gap: 2rem;
+  display: flex;
+  z-index: 1;
+}
+
+.wrapper {
+  padding: 0 3em;
+  position: relative;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  justify-content: space-between;
+}
+
+.buttons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.accept-btn,
+.decline-btn {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.accept-btn {
+  background-color: #4caf50;
+}
+
+.decline-btn {
+  background-color: var(--stale-900);
+}
+
+.accept-btn:hover {
+  background-color: #3e8e41;
+  transform: scale(1.02);
+}
+
+.decline-btn:hover {
+  transform: scale(1.02);
+}
+
+.accept-btn:active,
+.decline-btn:active {
+  transform: scale(0.95);
+}
+
+.field {
+  position: absolute;
+  font-size: 50%;
+  width: 45em;
+  height: 45em;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--stale-400);
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.ships {
+  -top: -15%;
+  -position: absolute;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.ship-wrapper {
+  cursor: grab;
+  font-size: 50%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.ship-wrapper:hover{
+  cursor: move;
+}
+.ship-wrapper:active{
+  cursor: move;
+}
+
+.ships{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+}
+
+.ship-wrapper > .cell {
+  border: none;
+}
+
+.draggable{
+  cursor: move;
+}

@@ -1,0 +1,60 @@
+@font-face {
+  font-family: "StarWars";
+  src: url(../fonts/StarjediRegular.ttf) format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
+  -border: 0.1px solid black;
+}
+
+:root {
+  font-size: 62.5%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --main-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --stale-900: rgb(51, 65, 85);
+  --stale-400: #94a3b8;
+  --stale-300: #cbd5e1;
+  --stale-200: #e2e8f0;
+  --stale-100: #f1f5f9;
+  --ship-size:2;
+  color: black;
+}
+
+h1 {
+  font-family: StarWars;
+  flex: 1;
+  -font-size: 5rem;
+ font-size: clamp(3rem, 3vw, 5rem);
+}
+
+body {
+  position: relative;
+  background-image: url(../imgs/wave-haikei.svg);
+  background-size: cover;
+  
+  background-repeat: no-repeat;
+  font-size: 1.6rem;
+  min-height: 100vh;
+  min-width: 70rem;
+}
+
+.main-container {
+  display: grid;
+  grid-template-rows: 8rem 3fr 8rem;
+  grid-gap: 10px;
+  min-height: 100vh;
+}
+
+.hidden{
+  display: none;
+}
+
