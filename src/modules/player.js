@@ -11,7 +11,7 @@ export default class Player {
       });
       return queue;
     })();
-    this.attacks = [];
+    this.attacks = new Set();
   }
 
   placeShip(x, y, direction) {
@@ -27,10 +27,10 @@ export default class Player {
 
   attackEnemy(enemy, x, y) {
     if (enemy.isAllSunk()) return;
-    if (this.attacks.some(([a, b]) => a === x && b === y)) {
+    if ([...this.attacks].some(([a, b]) => a === x && b === y)) {
       return "Cant hit one cell twice";
     }
-    this.attacks.push([x, y]);
+    this.attacks.add([x, y]);
     const result = enemy.gameboard.receiveAttack(x, y);
     if (result === "sink" && enemy.isAllSunk())
       return { value: "sink", gamestate: "game over" };

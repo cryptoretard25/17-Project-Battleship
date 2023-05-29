@@ -11,8 +11,8 @@ export default class Computer extends Player {
 
   generateCoords() {
     let [x, y] = this._generateRandomCoords();
-    if (!this.attacks.some(([a, b]) => a === x && b === y)) {
-      this.attacks.push([x, y]);
+    if (![...this.attacks].some(([a, b]) => a === x && b === y)) {
+      this.attacks.add([x, y]);
       return [x, y];
     } else {
       return this.generateCoords();
@@ -49,7 +49,7 @@ export default class Computer extends Player {
 
   attackEnemy(enemy, x, y) {
     if (enemy.isAllSunk()) return;
-    this.attacks.push([x, y]);
+    this.attacks.add([x, y]);
     const result = enemy.gameboard.receiveAttack(x, y);
     if (result === "sink" && enemy.isAllSunk())
       return { value: "sink", gamestate: "game over" };

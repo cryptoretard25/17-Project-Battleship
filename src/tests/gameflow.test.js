@@ -16,7 +16,7 @@ function endgameCbMock(winner) {}
 describe("testing Game class", () => {
   it("Player and computer should attack", async () => {
     await game.attack("[0,0]", successCbMock, alertCbMock, endgameCbMock);
-    expect(player.attacks).toEqual([[0, 0]]);
+    expect([...player.attacks]).toEqual([[0, 0]]);
     expect(computer.attacks.length).not.toBe(0);
     expect(game._getAttacker()).toEqual(player);
   });

@@ -16,7 +16,7 @@ export default class Computer extends Player {
 
   isAttacked(pos) {
     const [x, y] = pos;
-    return this.attacks.some(([a, b]) => a === x && b === y);
+    return [...this.attacks].some(([a, b]) => a === x && b === y);
   }
 
   resetHitMode() {
@@ -28,8 +28,8 @@ export default class Computer extends Player {
 
   generateCoords() {
     let [x, y] = this._generateRandomCoords();
-    if (!this.attacks.some(([a, b]) => a === x && b === y)) {
-      this.attacks.push([x, y]);
+    if (![...this.attacks].some(([a, b]) => a === x && b === y)) {
+      this.attacks.add([x, y]);
       return [x, y];
     } else {
       return this.generateCoords();
@@ -89,7 +89,7 @@ export default class Computer extends Player {
         }
 
         result = enemy.gameboard.receiveAttack(x, y);
-        this.attacks.push([x, y]);
+        this.attacks.add([x, y]);
 
         if (result === "hit") {
           this.lastHit = [x, y];
@@ -110,7 +110,7 @@ export default class Computer extends Player {
         }
 
         result = enemy.gameboard.receiveAttack(x, y);
-        this.attacks.push([x, y]);
+        this.attacks.add([x, y]);
 
         if (result === "hit") {
           this.lastHit = [x, y];
@@ -131,7 +131,7 @@ export default class Computer extends Player {
         }
 
         result = enemy.gameboard.receiveAttack(x, y);
-        this.attacks.push([x, y]);
+        this.attacks.add([x, y]);
 
         if (result === "hit") {
           this.lastHit = [x, y];
@@ -145,7 +145,7 @@ export default class Computer extends Player {
         [x, y] = [this.lastHit[0] + 1, this.lastHit[1]];
 
         result = enemy.gameboard.receiveAttack(x, y);
-        this.attacks.push([x, y]);
+        this.attacks.add([x, y]);
 
         if (result === 'hit') {
           this.lastHit = [x, y];
@@ -167,7 +167,7 @@ export default class Computer extends Player {
   _attackEnemy(enemy) {
     if (enemy.isAllSunk()) return;
     const [x, y] = this.generateCoords();
-    this.attacks.push([x, y]);
+    this.attacks.add([x, y]);
     const result = enemy.gameboard.receiveAttack(x, y);
     if (result === "sink" && enemy.isAllSunk()) {
       return [
