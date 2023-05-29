@@ -2,7 +2,7 @@ import DOM from "./modules/dom/Dom";
 import S from "./modules/ship";
 import Board from "./modules/board";
 import Player from "./modules/player";
-import Computer from "./modules/computer";
+import Computer from "./modules/ai";
 import Queue from "./data_structures/queue";
 import { Game, instanceGame } from "./modules/gameflow";
 

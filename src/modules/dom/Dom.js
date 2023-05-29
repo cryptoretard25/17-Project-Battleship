@@ -57,25 +57,28 @@ const DOM = (() => {
       }
     }
 
-    function _handleAttack(attakedClass, coords, result) {
-      const cells = [
-        ...document.querySelectorAll(`.${attakedClass.name} .cell`),
-      ];
+    function _handleAttack(attakedClass, coords, result, alertFn) {
+      const cells = [ ...document.querySelectorAll(`.${attakedClass.name} .cell`), ];
       const cell = _findCell(coords, cells);
       if (attakedClass.name === "computer") {
         if (result === "miss") {
+          alertFn(`Player attacks: ${result}`);
           cell.className = "cell miss";
         } else if (result === "hit") {
+          alertFn(`Player attacks: ${result}`);
           cell.className = "cell hit-black";
         } else if (result === "sink") {
+          alertFn(`Player attacks: ${result}`);
           _createSinkedShip(attakedClass.playerShips, cells, coords);
         }
       }
       if (attakedClass.name === "player") {
         if (result === "miss") {
+          alertFn(`Computer attacks: ${result}`);
           cell.className = "cell miss";
         }
         if (result === "hit" || result === "sink") {
+          alertFn(`Computer attacks: ${result}`);
           cell.className = "cell hit";
         }
       }
@@ -522,7 +525,7 @@ const DOM = (() => {
   async function createAlertDiv(message) {
     const alertDiv = document.createElement("div");
     alertDiv.className = "alert-div";
-    alertDiv.insertAdjacentHTML("beforeend", `<h3>Alert! ${message}!</h3>`);
+    alertDiv.insertAdjacentHTML("beforeend", `<h3>${message}!</h3>`);
     const existingElement = document.querySelector(".alert-div");
     
     if (!existingElement) {
@@ -530,7 +533,7 @@ const DOM = (() => {
     }else{
       return
     }
-    await _timeout(2000);
+    await _timeout(1500);
     document.body.removeChild(alertDiv);
   }
 

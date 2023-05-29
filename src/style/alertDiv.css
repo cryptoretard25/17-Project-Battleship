@@ -1,11 +1,11 @@
 .alert-div{
   position: fixed;
-  top: 26%;
+  top: 13%;
   left: 50%;
   transform: translate(-50%, -50%);
   height: 5rem;
   width: 70rem;
-  background-color: white;
+  background-color: var(--stale-100);
   border-radius: 5rem;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
   color: var(--stale-900);

@@ -4,14 +4,26 @@ export default class Computer extends Player {
   constructor(gameboard, ShipClass, queue) {
     super(gameboard, ShipClass, queue);
     this.name = "computer";
-    this.wasHit = false;
-    this.lastHitPosition = null;
-    this.firstHitPosition = null;
-    this.attackDirection = null;
-    this.possibleTargets = [];
+    this.hitMode = false;
+    this.firstHit = null;
+    this.lastHit = null;
+    this.attackDir = "left";
   }
+
   _generateRandomCoords() {
     return [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+  }
+
+  isAttacked(pos) {
+    const [x, y] = pos;
+    return this.attacks.some(([a, b]) => a === x && b === y);
+  }
+
+  resetHitMode() {
+    this.firstHit = null;
+    this.lastHit = null;
+    this.attackDir = "left";
+    this.hitMode = false;
   }
 
   generateCoords() {
@@ -52,12 +64,117 @@ export default class Computer extends Player {
     return this.gameboard.grid;
   }
 
-  attackEnemy(enemy, x, y) {
+  attackEnemy(enemy) {
     if (enemy.isAllSunk()) return;
+    let result;
+    let x, y;
+
+    if (!this.hitMode) {
+      [x, y] = this.generateCoords();
+      result = enemy.gameboard.receiveAttack(x, y);
+      if (result === "hit") {
+        this.hitMode = true;
+        this.firstHit = [x, y];
+        this.lastHit = [x, y];
+      }
+    } else if (this.hitMode) {
+      if (this.attackDir === "left") {
+        // LEFT
+        [x, y] = [this.lastHit[0], this.lastHit[1] - 1];
+
+        if (y < 0 || this.isAttacked([x, y])) {
+          this.lastHit = this.firstHit;
+          this.attackDir = "right";
+          return this.attackEnemy(enemy);
+        }
+
+        result = enemy.gameboard.receiveAttack(x, y);
+        this.attacks.push([x, y]);
+
+        if (result === "hit") {
+          this.lastHit = [x, y];
+        } else if (result === "sink") {
+          this.resetHitMode();
+        } else if (result === "miss") {
+          this.lastHit = this.firstHit;
+          this.attackDir = "right";
+        }
+      } else if (this.attackDir === "right") {
+        // RIGHT
+        [x, y] = [this.lastHit[0], this.lastHit[1] + 1];
+
+        if (y > 9 || this.isAttacked([x, y])) {
+          this.lastHit = this.firstHit;
+          this.attackDir = "up";
+          return this.attackEnemy(enemy);
+        }
+
+        result = enemy.gameboard.receiveAttack(x, y);
+        this.attacks.push([x, y]);
+
+        if (result === "hit") {
+          this.lastHit = [x, y];
+        } else if (result === "miss") {
+          this.lastHit = this.firstHit;
+          this.attackDir = "up";
+        } else if (result === "sink") {
+          this.resetHitMode();
+        }
+      } else if (this.attackDir === "up") {
+        // UP
+        [x, y] = [this.lastHit[0] - 1, this.lastHit[1]];
+
+        if (x < 0 || this.isAttacked([x, y])) {
+          this.lastHit = this.firstHit;
+          this.attackDir = "down";
+          return this.attackEnemy(enemy);
+        }
+
+        result = enemy.gameboard.receiveAttack(x, y);
+        this.attacks.push([x, y]);
+
+        if (result === "hit") {
+          this.lastHit = [x, y];
+        } else if (result === "miss") {
+          this.lastHit = this.firstHit;
+          this.attackDir = "down";
+        } else if (result === "sink") {
+          this.resetHitMode();
+        }
+      } else if (this.attackDir === "down") {
+        [x, y] = [this.lastHit[0] + 1, this.lastHit[1]];
+
+        result = enemy.gameboard.receiveAttack(x, y);
+        this.attacks.push([x, y]);
+
+        if (result === 'hit') {
+          this.lastHit = [x, y];
+        }else if(result === 'sink'){
+          this.resetHitMode();
+        }
+      }
+    }
+
+    if (result === "sink" && enemy.isAllSunk()) {
+      return [
+        JSON.stringify([x, y]),
+        { value: "sink", gamestate: "game over" },
+      ];
+    }
+    return [JSON.stringify([x, y]), result];
+  }
+
+  _attackEnemy(enemy) {
+    if (enemy.isAllSunk()) return;
+    const [x, y] = this.generateCoords();
     this.attacks.push([x, y]);
     const result = enemy.gameboard.receiveAttack(x, y);
-    if (result === "sink" && enemy.isAllSunk())
-      return { value: "sink", gamestate: "game over" };
-    return result;
+    if (result === "sink" && enemy.isAllSunk()) {
+      return [
+        JSON.stringify([x, y]),
+        { value: "sink", gamestate: "game over" },
+      ];
+    }
+    return [JSON.stringify([x, y]), result];
   }
 }

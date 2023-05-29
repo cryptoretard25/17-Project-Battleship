@@ -1,7 +1,7 @@
 import Ship from "../ship";
 import Gameboard from "../old-board";
 import { Player, Computer } from "../player";
-import Queue from "../data_structures/queue";
+import Queue from "../src/data_structures/queue";
 const { log } = console;
 
 describe("testing rest of Gameboard", () => {

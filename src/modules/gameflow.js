@@ -39,55 +39,77 @@ class Game {
     return this.gameQueue.last();
   }
 
-  // attack(coords) {
+  // attack for old computer class
+  // async _attack(coords, successCb, alertCb, endgameCb) {
+  //   if (!this.gameStarted) return;
+  //   const attaker = this._getAttacker();
+  //   const attacked = this._getAttacked();
+
   //   const [x, y] = JSON.parse(coords);
-  //   const result = this._getAttacker().attackEnemy(this._getAttacked(), x, y);
+  //   const result = attaker.attackEnemy(attacked, x, y);
+  //   console.log(result);
   //   if (result === "Cant hit one cell twice") {
-  //     return `You ${result}`;
-  //   }
-  //   if (result === "Game over") {
-  //     alert("Game over");
-  //     this.winner = this._getAttacker();
+  //     alertCb(result);
   //     return;
   //   }
+
+  //   if (typeof result === "object") {
+  //     successCb(attacked, coords, result.value);
+  //     if (result.gamestate === "game over") {
+  //       this.gameStarted = false;
+  //       const winner = attaker.name;
+  //       endgameCb(winner);
+  //     }
+  //     console.log("game over");
+  //   }
+
+  //   successCb(attacked, coords, result);
+
   //   this._moveQueue(result);
 
   //   if (this._getAttacker() === this.computer) {
-  //     const attackCoords = this.computer.generateCoords();
-  //     this.attack(JSON.stringify(attackCoords));
+  //     await this._timeout(2000);
+  //     const attackCoords = JSON.stringify(this.computer.generateCoords());
+  //     await this.attack(attackCoords, successCb, alertCb, endgameCb);
   //   }
   // }
 
+
+  // attack for new ai
+
   async attack(coords, successCb, alertCb, endgameCb) {
-    if(!this.gameStarted) return
-    const attaker = this._getAttacker();
+    if (!this.gameStarted) return;
+    const attacker = this._getAttacker();
     const attacked = this._getAttacked();
-    const [x, y] = JSON.parse(coords);
-    const result = attaker.attackEnemy(attacked, x, y);
-    console.log(result)
+    let result;
+
+    if (attacker === this.computer) {
+      [coords, result] = attacker.attackEnemy(attacked);
+    } else {
+      const [x, y] = JSON.parse(coords);
+      result = attacker.attackEnemy(attacked, x, y);
+    }
+
     if (result === "Cant hit one cell twice") {
       alertCb(result);
       return;
     }
 
-    if(typeof result === 'object'){
-      successCb(attacked, coords, result.value);
-      if (result.gamestate === 'game over'){
+    if (typeof result === "object") {
+      successCb(attacked, coords, result.value, alertCb);
+      if (result.gamestate === "game over") {
         this.gameStarted = false;
-        const winner = attaker.name;
+        const winner = attacker.name;
         endgameCb(winner);
       }
-      console.log('game over')
     }
 
-    successCb(attacked, coords, result);
-
+    successCb(attacked, coords, result, alertCb);
     this._moveQueue(result);
 
     if (this._getAttacker() === this.computer) {
       await this._timeout(2000);
-      const attackCoords = JSON.stringify(this.computer.generateCoords());
-      await this.attack(attackCoords, successCb, alertCb, endgameCb);
+      await this.attack(null, successCb, alertCb, endgameCb);
     }
   }
 
@@ -113,4 +135,4 @@ function instanceGame(
   return new GameClass(player, computer, new QueueClass());
 }
 
-export {Game, instanceGame}
+export { Game, instanceGame };
