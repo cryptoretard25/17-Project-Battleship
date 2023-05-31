@@ -3,7 +3,7 @@ import Player from "./player";
 export default class Computer extends Player {
   constructor(gameboard, ShipClass, queue) {
     super(gameboard, ShipClass, queue);
-    this.name = 'computer';
+    this.name = "computer";
   }
   _generateRandomCoords() {
     return [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
@@ -39,20 +39,25 @@ export default class Computer extends Player {
     return result;
   }
 
-  placeAllShips(){
-    while(this.ships.size()){
+  placeAllShips() {
+    while (this.ships.size()) {
       this.placeShip();
     }
-    console.log(this.gameboard.grid)
-    return this.gameboard.grid
+    console.log(this.gameboard.grid);
+    return this.gameboard.grid;
   }
 
-  attackEnemy(enemy, x, y) {
+  attackEnemy(enemy) {
     if (enemy.isAllSunk()) return;
+    const [x, y] = this.generateCoords();
     this.attacks.add([x, y]);
     const result = enemy.gameboard.receiveAttack(x, y);
-    if (result === "sink" && enemy.isAllSunk())
-      return { value: "sink", gamestate: "game over" };
-    return result;
+    if (result === "sink" && enemy.isAllSunk()) {
+      return [
+        JSON.stringify([x, y]),
+        { value: "sink", gamestate: "game over" },
+      ];
+    }
+    return [JSON.stringify([x, y]), result];
   }
 }
